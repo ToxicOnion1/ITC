@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+</head>
+<body>
+
+    <h1>Fahrenheit and Celsius Converter</h1>
+    <br><br>
+
+    <input id="feet" type="number" placeholder="Enter Feet"></input>
+    <button id="btnconvertfeet">Convert to Meters</button>
+    <br>
+    <p id="newmeters"></p>
+    <br><br>
+
+    <input id="meters" type="number" placeholder="Enter meters"></input>
+    <button id="btnconvertmeters">Convert to Feet</button>
+    <br>
+    <p id="newfeet"></p>
+    <br><br>
+
+    <button id= "clearvalues">Clear Value</button>
+    <br><br>    
+    
+    <a href="index.html">Back to Home </a>  
+
+
+    <script>
+        document.getElementById("btnconvertfeet").addEventListener("click", ()=>
+        {
+            var feet, meters;
+            feet = document.getElementById("feet").value*1;
+            meters = feet * 0.3048;
+            document.getElementById("newmeters").innerHTML = "Meters: " + meters+" m";
+        }
+        );
+        document.getElementById("btnconvertmeters").addEventListener("click", ()=>
+        {
+            var meters, feet;
+            meters = document.getElementById("meters").value*1;
+            feet = meters / 0.3048;
+            document.getElementById("newfeet").innerHTML = "Feet: " + feet+" ft";
+        }
+        );
+        document.getElementById("clearvalues").addEventListener("click", ()=>
+        {
+            document.getElementById("feet").value = '';
+            document.getElementById("meters").value = '';
+            document.getElementById("newfeet").value = '';
+            document.getElementById("newmetersS").value = '';
+        }
+    );
+    </script>
+    
+</body>
+</html>
