@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Nth Factorial - Introduction to Computing</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {font-family: "Lato", sans-serif}
+        .mySlides {display: none}
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-black w3-card">
+        <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+        <a href="index.html" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+    </div>
+</div>
+    </div>
+</div>
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px;margin-top:46px">
+    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
+        <h2 class="w3-wide">Nth Factorial, Sum and Average</h2>
+
+        <input id="n" type="number" placeholder="Enter a Number">
+        <button id="btncompute">Compute Factorial, Sum and Average</button>
+        <br>
+        <p id="factorial"></p>
+        <br>
+        <p id="sum"></p>
+        <br>
+        <p id="average"></p>
+        <br>
+        <button id="clearvalues">Clear Value</button>
+        <br><br>
+        <a href="index.html">Back to Home</a>
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("navDemo");
+        if (!x) return;
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+
+    document.getElementById("btncompute").addEventListener("click", () => {
+        var n, factorial, sum, average, i, avsum;
+        n = document.getElementById("n").value * 1;
+        factorial = 1;
+        sum = 0;
+        avsum = 0;
+
+        i = n;
+        while (i >= 1) {
+            factorial = factorial * i;
+            i = i - 1;
+        }
+        // compute sum (original logic used a do-while after decrementing i)
+        var k;
+        for (k = 1; k <= n; k++) {
+            sum = sum + k;
+        }
+
+        for (var j = 1; j <= n; j++) {
+            avsum = avsum + j;
+        }
+        average = avsum / n;
+
+        document.getElementById("factorial").innerHTML = "Factorial: " + factorial;
+        document.getElementById("sum").innerHTML = "Sum: " + sum;
+        document.getElementById("average").innerHTML = "Average of the First n Numbers: " + average;
+    });
+
+    document.getElementById("clearvalues").addEventListener("click", () => {
+        document.getElementById("n").value = '';
+        document.getElementById("factorial").innerHTML = '';
+        document.getElementById("sum").innerHTML = '';
+        document.getElementById("average").innerHTML = '';
+    });
+</script>
+
+</body>
+</html>

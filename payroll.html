@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Simple Payroll - Introduction to Computing</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {font-family: "Lato", sans-serif}
+    .mySlides {display: none}
+    #tablediv{
+      grid-row-start:2;
+      grid-row-end:19;
+      grid-column-start:5;
+      grid-column-end:8;
+      padding-left:10px;
+      width:850px;
+      height:600px;
+      border-top:solid 1px;
+      border-left:solid 1px;      
+      border-bottom:solid 1px;
+      border-right:solid 1px;      
+   }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card">
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="index.html" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+  </div>
+</div>
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px;margin-top:46px">
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:1000px">
+    <h2 class="w3-wide">Simple Payroll</h2>
+
+    <label for="name">Employee Name:</label>
+    <input id="name" type="text">
+    <br>
+    <label for="days">Number of Days Worked:</label>
+    <input id="days" type="number">
+    <br>
+    <label for="rate">Daily Rate:</label>
+    <input id="rate" type="number">
+    <br>
+    <label for="deductions">Deduction Amount:</label>
+    <input id="deductions" type="number">
+    <br><br>
+    <button id="btnadd">Add to Payroll</button>
+    <button id="btnclear">Clear Payroll</button>
+    <button onclick="removeEmployee(Number(prompt('Enter employee number to remove:')))">Remove Employee</button>
+
+    <br><br>
+    <a href="index.html">Back to Home</a>
+
+    <div id="tablediv">
+      <h2>Payroll Summary</h2>
+      <table id="payroll" border="1">
+        <thead>
+          <tr>
+            <td>Employee No.</td>
+            <td>Employee Name</td>
+            <td>Days Worked</td>
+            <td>Daily Rate</td>
+            <td>Gross Pay</td>
+            <td>Deduction Amount</td>
+            <td>Net Pay</td>
+          </tr>
+        </thead>
+        <tbody id="payrollbody"></tbody>
+      </table>
+    </div>
+
+    <dialog id="dlgConfirmCancel">
+      <form method="dialog">
+        <h4 id="dlgmsg"></h4>
+        <button id="btnConfirm" value="confirm">Confirm</button>
+        <button id="btnCancel" value="cancel">Cancel</button>
+      </form>
+    </dialog>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function myFunction() { var x = document.getElementById("navDemo"); if (!x) return; if (x.className.indexOf("w3-show") == -1) { x.className += " w3-show"; } else { x.className = x.className.replace(" w3-show", ""); } }
+
+  let empList = [];
+  const payrollBody = document.getElementById("payrollbody");
+  const dlg = document.getElementById("dlgConfirmCancel");
+  const msg = document.getElementById("dlgmsg");
+
+  // Add Employee
+  document.getElementById("btnadd").addEventListener("click", () => {
+    const name = document.getElementById("name").value.trim();
+    const days = Number(document.getElementById("days").value);
+    const rate = Number(document.getElementById("rate").value);
+    const deductions = Number(document.getElementById("deductions").value);
+
+    if (name === "" || isNaN(days) || isNaN(rate) || isNaN(deductions)) {
+      alert("Please fill in all fields correctly.");
+      return;
+    }
+
+    const grossPay = days * rate;
+    const netPay = grossPay - deductions;
+
+    msg.textContent = `Add ${name} to payroll?`;
+    dlg.showModal();
+
+    document.getElementById("btnConfirm").onclick = () => {
+      empList.push({ name, days, rate, grossPay, deductions, netPay });
+      renderPayroll();
+      clearInputs();
+      dlg.close();
+    };
+
+    document.getElementById("btnCancel").onclick = () => dlg.close();
+  });
+
+  // Render payroll table
+  function renderPayroll() {
+    payrollBody.innerHTML = "";
+    empList.forEach((emp, index) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${emp.name}</td>
+        <td>${emp.days}</td>
+        <td>${emp.rate}</td>
+        <td>${emp.grossPay}</td>
+        <td>${emp.deductions}</td>
+        <td>${emp.netPay}</td>
+      `;
+      payrollBody.appendChild(row);
+    });
+  }
+
+  // Clear input fields
+  function clearInputs() {
+    document.getElementById("name").value = "";
+    document.getElementById("days").value = "";
+    document.getElementById("rate").value = "";
+    document.getElementById("deductions").value = "";
+  }
+
+  // Clear Payroll
+  document.getElementById("btnclear").addEventListener("click", () => {
+    if (confirm("Are you sure you want to clear the entire payroll?")) {
+      empList = [];
+      renderPayroll();
+    }
+  });
+
+  // REMOVE EMPLOYEE BY NUMBER
+  function removeEmployee(empNumber) {
+    if (isNaN(empNumber) || empNumber < 1 || empNumber > empList.length) {
+      alert("Invalid employee number!");
+      return;
+    }
+    empList.splice(empNumber - 1, 1);
+    renderPayroll();
+  }
+</script>
+
+</body>
+</html>
+</html>

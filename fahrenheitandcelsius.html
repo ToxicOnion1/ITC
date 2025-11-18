@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fahrenheit &amp; Celsius - Introduction to Computing</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {font-family: "Lato", sans-serif}
+        .mySlides {display: none}
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-black w3-card">
+        <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+        <a href="index.html" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+    </div>
+</div>
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px;margin-top:46px">
+    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
+        <h2 class="w3-wide">Fahrenheit &amp; Celsius Converter</h2>
+
+        <input id="fahrenheit" type="number" placeholder="Enter Fahrenheit">
+        <button id="btnconvertfah">Convert to Celsius</button>
+        <br>
+        <p id="newcelsius"></p>
+        <br>
+
+        <input id="celsius" type="number" placeholder="Enter Celsius">
+        <button id="btnconvertcel">Convert to Fahrenheit</button>
+        <br>
+        <p id="newfahrenheit"></p>
+        <br>
+
+        <button id="clearvalues">Clear Value</button>
+        <br><br>
+        <a href="index.html">Back to Home</a>
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("navDemo");
+        if (!x) return;
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+
+    document.getElementById("btnconvertfah").addEventListener("click", () => {
+        var fahrenheit, celsius;
+        fahrenheit = document.getElementById("fahrenheit").value * 1;
+        celsius = (fahrenheit - 32) * (5 / 9);
+        document.getElementById("newcelsius").innerHTML = "Celsius: " + celsius + "°C";
+    });
+
+    document.getElementById("btnconvertcel").addEventListener("click", () => {
+        var fahrenheit, celsius;
+        celsius = document.getElementById("celsius").value * 1;
+        fahrenheit = (celsius * (9 / 5)) + 32;
+        document.getElementById("newfahrenheit").innerHTML = "Fahrenheit: " + fahrenheit + "°F";
+    });
+
+    document.getElementById("clearvalues").addEventListener("click", () => {
+        document.getElementById("fahrenheit").value = '';
+        document.getElementById("celsius").value = '';
+        document.getElementById("newcelsius").innerHTML = '';
+        document.getElementById("newfahrenheit").innerHTML = '';
+    });
+</script>
+
+</body>
+</html>
